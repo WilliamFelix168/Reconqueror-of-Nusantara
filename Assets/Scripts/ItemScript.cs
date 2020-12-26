@@ -10,9 +10,7 @@ public class ItemScript : MonoBehaviour
     private bool isTouchGround = true;
     protected bool jump;
     public Vector2 RespawnPoint;
-
-    public float respawnDelay;
-    //public PlayerController gamePlayer;
+    public LevelManager gameLevelManager;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +18,8 @@ public class ItemScript : MonoBehaviour
         joystick = FindObjectOfType<Joystick>();
         joyButton = FindObjectOfType<JoyButton>();
         Animator = FindObjectOfType<Animator>();
+        gameLevelManager = FindObjectOfType<LevelManager>();
         RespawnPoint = transform.position;
-
-       // gamePlayer = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -58,18 +55,7 @@ public class ItemScript : MonoBehaviour
     {
         if(other.tag == "FallDetector")
         {
-            transform.position = RespawnPoint;
+            gameLevelManager.Respawn();
         }
     }
-
-    public void Respawn()
-    {
-        StartCoroutine("RespawnCoroutine");
-    }
-    /*public IEnumerator RespawnCoroutine()
-    {
-        gamePlayer.gameObject.SetActive(false);
-        gamePlayer.transform.position = gamePlayer.RespawnPoint;
-        gamePlayer.gameObject.SetActive(true);
-    }*/
 }
